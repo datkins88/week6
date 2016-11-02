@@ -48,7 +48,7 @@ var Card = React.createClass({
   render: function (){
     return (
       <div className="col-sm-2">
-        <img className="img-responsive" src={"http://golearntocode.com/images/cards/ace_of_hearts.png"}/>
+        <img className="img-responsive" src={"http://golearntocode.com/images/cards/"+ {this.props.Deck}[{this.props.cardNumber}]+".png"}/>
       </div>
       )
   }
@@ -56,11 +56,14 @@ var Card = React.createClass({
 
 var App = React.createClass({
   dealOnClick: function () {
-    var Deck = function(){
-    };
-    },
+    var Deck = getDeck().shuffle() // Cannot figure out how to create Deck when Deal Button is clicked
+    this.setState({
+      hand: Deck
+    })
+  },
   getInitialState: function(){
-    return {hand: Deck}; // will reference the Deck array once we create it
+    return {
+      hand: Deck[0,1,2,3,4]// will be the initial hand and reference the Deck array once we create it
       },
   render: function() {
     return (
