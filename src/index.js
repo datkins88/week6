@@ -31,9 +31,13 @@ window.getDeck = function() {
   return cards;
 }
 // END OF STUFF TO NOT MODIFY
-//ISSUES
-//1. onClick class is not working when I click the button
-//2.
+//KEY ISSUES
+//1. onClick class is not working when I click the"Deal" button (I was testing with a simple Alert)
+//2. Cannot figure out how to create Deck object like week 4 using = getdeck().shuffle()
+//3. Unclear if I'm thinking about dealOnClick the right way -- I've created as element within App and want it to trigger a handful of things including:
+// -->a.cause the clicking of Deal button to trigger an event
+//-->b. create Deck object from which the Cards can pull Deck[0,1,2,3,4]
+//-->c. set the initial state ("hand")
 
 var Deal = React.createClass({
   render: function(){
@@ -48,7 +52,7 @@ var Card = React.createClass({
   render: function (){
     return (
       <div className="col-sm-2">
-        <img className="img-responsive" src={"http://golearntocode.com/images/cards/"+ {this.props.Deck}[{this.props.cardNumber}]+".png"}/>
+        <img className="img-responsive" src={"http://golearntocode.com/images/cards/"+ {this.props.Deck}[{this.props.cardNumber}]+".png"}/> //to pull string 0-4 of Deck once it's created
       </div>
       )
   }
@@ -63,7 +67,7 @@ var App = React.createClass({
   },
   getInitialState: function(){
     return {
-      hand: Deck[0,1,2,3,4]// will be the initial hand and reference the Deck array once we create it
+      hand: Deck[0,1,2,3,4]// will be the initial hand and reference the Deck array once created
       },
   render: function() {
     return (
