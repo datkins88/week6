@@ -30,16 +30,20 @@ window.getDeck = function() {
   });
   return cards;
 }
-// END OF STUFF TO NOT MODIFY
-//KEY ISSUES
-//1. onClick class is not working when I click the"Deal" button (I was testing with a simple Alert)
-//2. Cannot figure out how to create Deck object like week 4 using = getdeck().shuffle()
-//3. Unclear if I'm thinking about dealOnClick the right way -- I've created as element within App and want it to trigger a handful of things including:
-// -->a.cause the clicking of Deal button to trigger an event
-//-->b. create Deck object from which the Cards can pull Deck[0,1,2,3,4]
-//-->c. set the initial state ("hand")
+
+//KEY ISSUES I'm (STILL) HAVING
+//1.Cannot get transferring of "cardNumber" props within img of "Card" to work -- which makes for large error from the outset
+//2.Having very tough time understand the syntax for State in this example -- Buyflix is so much more complex that I can't draw parallels
+//3. Not sure if Deck should be element defined beneath App and Deal.
+
+var Deck = window.getDeck().shuffle()
 
 var Deal = React.createClass({
+  dealOnClick: function(hand) {
+    this.setState({
+      hand: Deck[0,1,2,3,4]
+    })
+  },
   render: function(){
   return (
     <div className="col-sm-2">
@@ -52,23 +56,23 @@ var Card = React.createClass({
   render: function (){
     return (
       <div className="col-sm-2">
-        <img className="img-responsive" src={"http://golearntocode.com/images/cards/"+ {this.props.Deck}[{this.props.cardNumber}]+".png"}/> //to pull string 0-4 of Deck once it's created
+        <img className="img-responsive" alt="cards" src={"http://golearntocode.com/images/cards/"+ Deck[{this.props.cardNumber}]+ ".png"}/> //
       </div>
       )
   }
 })
 
 var App = React.createClass({
-  dealOnClick: function () {
-    var Deck = getDeck().shuffle() // Cannot figure out how to create Deck when Deal Button is clicked
+  dealOnClick: function(hand) {
     this.setState({
-      hand: Deck
+      hand: Deck[0,1,2,3,4]
     })
   },
   getInitialState: function(){
     return {
-      hand: Deck[0,1,2,3,4]// will be the initial hand and reference the Deck array once created
-      },
+        hand: Deck["face_down","face_down","face_down","face_down","face_down"]
+      }
+    },
   render: function() {
     return (
       <div>
@@ -79,7 +83,7 @@ var App = React.createClass({
           <Card cardNumber="2"/>
           <Card cardNumber="3"/>
           <Card cardNumber="4"/>
-          <Deal />
+          <Deal/>
         </div>
       </div>
     )
